@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "default": "yamirandom"
+  },
+  "hosting": {
+    "rewrites": [{
+      "source": "/buki",
+      "function": "buki"
+    }]
+  }
+}
