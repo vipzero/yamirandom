@@ -13,11 +13,13 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "@types/random-seed": "^0.3.3",
     "@types/sharp": "^0.24.0",
     "canvas": "^2.6.1",
     "child-process-promise": "^2.2.1",
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.3.0",
+    "random-seed": "^0.3.0",
     "sharp": "^0.25.1"
   },
   "devDependencies": {

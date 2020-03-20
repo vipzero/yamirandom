@@ -3,6 +3,7 @@ import * as admin from "firebase-admin";
 import { createCanvas, Image } from "canvas";
 import * as stream from "stream";
 import { weponList } from "./splatoon-wepons";
+import * as gen from "random-seed";
 
 admin.initializeApp();
 
@@ -10,21 +11,22 @@ admin.initializeApp();
 // const FONT_BOLD = "font/NotoSansCJKjp-Medium.otf";
 // const FONT_REGULAR = "font/NotoSansCJKjp-Medium.otf";
 
-function sample<T>(a: Array<T>) {
-  return a[Math.floor(Math.random() * a.length)];
+function sample<T>(a: Array<T>, r: number) {
+  return a[Math.floor(r * a.length)];
 }
 
 exports.buki = functions.https.onRequest(async (req, res) => {
-  const msg = "いれたい文字";
-
   // ベースの画像
-  const filename = `generated_ogp.png`;
+  const rand = gen.create(req.baseUrl);
+  console.log(req.baseUrl);
 
   const width = 200;
   const height = 250;
   const canvas = createCanvas(width, height);
   const ctx = canvas.getContext("2d");
-  const wepons = Array.from(Array(8)).map(() => sample(weponList));
+  const wepons = Array.from(Array(8)).map(() =>
+    sample(weponList, rand.random())
+  );
 
   const fontSize = (height - 10 * 8) / 8;
   ctx.font = `${fontSize}px Avenir, Osaka, sans-serif`;
