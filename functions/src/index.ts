@@ -51,33 +51,6 @@ exports.buki = functions.https.onRequest(async (req, res) => {
   // const image = new Image();
   // image.src = canvas.toDataURL();
 
-  const bucket = admin.storage().bucket();
-  const bufferStream = new stream.PassThrough();
-  const ab = ctx.getImageData(0, 0, width, height).data.buffer as ArrayBuffer;
-
-  // @ts-ignore
-  bufferStream.end(Buffer.from(ab, "base64"));
-
-  const uploadPath = filename;
-
-  const file = bucket.file(filename);
-
-  bufferStream.pipe(
-    file.createWriteStream({
-      metadata: {
-        contentType: "image/png",
-        metadata: { custom: "metadata" }
-      },
-      public: true,
-      validation: "md5"
-    })
-  );
-
-  const STORAGE_ROOT = "https://firebasestorage.googleapis.com/v0/b";
-  const bucketName = bucket.name;
-  const dlPath = encodeURIComponent(uploadPath);
-  const dlURL = `${STORAGE_ROOT}/${bucketName}/o/${dlPath}?alt=media`;
-
-  // return Download URL
-  res.send(dlURL);
+  res.set("Content-Type", "image/png");
+  res.send(canvas.toBuffer());
 });
