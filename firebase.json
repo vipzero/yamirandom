@@ -6,7 +6,7 @@
     "public": "public",
     "rewrites": [
       {
-        "source": "/*",
+        "source": "/**",
         "function": "buki"
       }
     ]
