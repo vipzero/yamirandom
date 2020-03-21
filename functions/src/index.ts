@@ -47,7 +47,7 @@ const renderCanvas = (seed: string) => {
     if (i < 4) {
       ctx.fillText(`${i + 1}. ${w.name}`, 40, (i + 1) * (fontSize + 8) - 4);
     } else {
-      ctx.fillText(`${i - 4}. ${w.name}`, 40, (i + 1) * (fontSize + 8) + 4);
+      ctx.fillText(`${i - 3}. ${w.name}`, 40, (i + 1) * (fontSize + 8) + 4);
     }
   });
   ctx.font = `${fontSize * 0.6}px Avenir, Osaka, sans-serif`;
