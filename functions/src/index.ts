@@ -61,15 +61,13 @@ const dstr = () => {
   return `/${d.getFullYear()}${pad2(d.getMonth() + 1)}${d.getDate()}`;
 };
 
-exports.buki = functions
-  .region("asia-northeast1")
-  .https.onRequest(async (req, res) => {
-    const seed = /^\/[0-9]{8}\/./.exec(req.path) ? req.path : dstr() + req.path;
-    const canvas = renderCanvas(seed);
+exports.buki = functions.https.onRequest(async (req, res) => {
+  const seed = /^\/[0-9]{8}\/./.exec(req.path) ? req.path : dstr() + req.path;
+  const canvas = renderCanvas(seed);
 
-    // const image = new Image();
-    // image.src = canvas.toDataURL();
+  // const image = new Image();
+  // image.src = canvas.toDataURL();
 
-    res.set("Content-Type", "image/png");
-    res.send(canvas.toBuffer());
-  });
+  res.set("Content-Type", "image/png");
+  res.send(canvas.toBuffer());
+});
