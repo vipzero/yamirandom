@@ -1,9 +1,8 @@
-import * as functions from "firebase-functions";
+import { createCanvas } from "canvas";
 import * as admin from "firebase-admin";
-import { createCanvas, Image } from "canvas";
-import * as stream from "stream";
-import { weponList } from "./splatoon-wepons";
+import * as functions from "firebase-functions";
 import * as gen from "random-seed";
+import { weponList } from "./splatoon-wepons";
 
 admin.initializeApp();
 
@@ -56,19 +55,21 @@ const renderCanvas = (seed: string) => {
   return canvas;
 };
 
-const pad2 = n => `${n}`.padStart(2, "0");
+const pad2 = (n) => `${n}`.padStart(2, "0");
 const dstr = () => {
   const d = new Date();
   return `/${d.getFullYear()}${pad2(d.getMonth() + 1)}${d.getDate()}`;
 };
 
-exports.buki = functions.https.onRequest(async (req, res) => {
-  const seed = /^\/[0-9]{8}\/./.exec(req.path) ? req.path : dstr() + req.path;
-  const canvas = renderCanvas(seed);
+exports.buki = functions
+  .region("asia-northeast1")
+  .https.onRequest(async (req, res) => {
+    const seed = /^\/[0-9]{8}\/./.exec(req.path) ? req.path : dstr() + req.path;
+    const canvas = renderCanvas(seed);
 
-  // const image = new Image();
-  // image.src = canvas.toDataURL();
+    // const image = new Image();
+    // image.src = canvas.toDataURL();
 
-  res.set("Content-Type", "image/png");
-  res.send(canvas.toBuffer());
-});
+    res.set("Content-Type", "image/png");
+    res.send(canvas.toBuffer());
+  });
