@@ -58,7 +58,8 @@ const renderCanvas = (seed: string) => {
 const pad2 = (n) => `${n}`.padStart(2, "0");
 const dstr = () => {
   const d = new Date();
-  return `/${d.getFullYear()}${pad2(d.getMonth() + 1)}${d.getDate()}`;
+
+  return `/${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}`;
 };
 
 exports.buki = functions.https.onRequest(async (req, res) => {
